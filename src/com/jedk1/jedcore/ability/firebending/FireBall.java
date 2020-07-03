@@ -16,11 +16,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import com.jedk1.jedcore.JedCore;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.firebending.BlazeArc;
-import com.projectkorra.projectkorra.firebending.util.FireDamageTimer;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
@@ -104,7 +104,10 @@ public class FireBall extends FireAbility implements AddonAbility {
 			ParticleEffect.SMOKE_LARGE.display(location, 1, 0, 0, 0, 0);
 			ParticleEffect.SMOKE_LARGE.display(location, 1, 0, 0, 0, 0);
 			for (int j = 0; j < 5; j++) {
-				ParticleEffect.FLAME.display(location, 1, 0, 0, 0, 0);
+				if (bPlayer.hasSubElement(Element.BLUE_FIRE))
+					ParticleEffect.SOUL_FLAME.display(location, 1, 0, 0, 0, 0);
+				else
+					ParticleEffect.FLAME.display(location, 1, 0, 0, 0, 0);
 			}
 
 			boolean hitTarget = CollisionDetector.checkEntityCollisions(player, new Sphere(location.toVector(), collisionRadius), this::doDamage);
@@ -127,7 +130,6 @@ public class FireBall extends FireAbility implements AddonAbility {
 		DamageHandler.damageEntity(entity, damage, this);
 
 		FireTick.set(entity, Math.round(fireticks / 50));
-		new FireDamageTimer(entity, player);
 		return false;
 	}
 	

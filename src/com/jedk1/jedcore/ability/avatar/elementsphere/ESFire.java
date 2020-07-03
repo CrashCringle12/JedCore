@@ -1,7 +1,8 @@
 package com.jedk1.jedcore.ability.avatar.elementsphere;
 
-import com.jedk1.jedcore.JedCore;
+import com.jedk1.jedcore.JedCore; 
 import com.jedk1.jedcore.configuration.JedCoreConfig;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.AvatarAbility;
@@ -10,6 +11,7 @@ import com.projectkorra.projectkorra.command.Commands;
 import com.projectkorra.projectkorra.firebending.BlazeArc;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
+import com.projectkorra.projectkorra.ability.FireAbility;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -99,9 +101,11 @@ public class ESFire extends AvatarAbility implements AddonAbility {
 				travelled = range;
 				return;
 			}
-
 			ParticleEffect.SMOKE_LARGE.display(location, 2, Math.random(), Math.random(), Math.random(), 0.01);
-			ParticleEffect.FLAME.display(location, 5, Math.random(), Math.random(), Math.random(), 0.02);
+			if (bPlayer.hasSubElement(Element.BLUE_FIRE))
+				ParticleEffect.SOUL_FLAME.display(location, 5, Math.random(), Math.random(), Math.random(), 0.02);
+			else
+				ParticleEffect.FLAME.display(location, 5, Math.random(), Math.random(), Math.random(), 0.02);
 			FireAbility.playFirebendingSound(location);
 
 			placeFire();
@@ -118,7 +122,7 @@ public class ESFire extends AvatarAbility implements AddonAbility {
 
 	private void placeFire() {
 		if (GeneralMethods.isSolid(location.getBlock().getRelative(BlockFace.DOWN))) {
-			location.getBlock().setType(Material.FIRE);
+			location.getBlock().setType(bPlayer.hasSubElement(Element.BLUE_FIRE) ? Material.SOUL_FIRE : Material.FIRE);
 			new BlazeArc(player, location, direction, 2);
 		}
 	}

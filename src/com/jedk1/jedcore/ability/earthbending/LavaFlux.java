@@ -24,7 +24,6 @@ import com.jedk1.jedcore.util.RegenTempBlock;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.LavaAbility;
-import com.projectkorra.projectkorra.firebending.util.FireDamageTimer;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
@@ -184,7 +183,6 @@ public class LavaFlux extends LavaAbility implements AddonAbility {
 		for (Entity entity : GeneralMethods.getEntitiesAroundPoint(location, 1.5)) {
 			if (entity instanceof LivingEntity && entity.getEntityId() != player.getEntityId()) {
 				DamageHandler.damageEntity(entity, damage, this);
-				new FireDamageTimer(entity, player);
 			}
 		}
 	}

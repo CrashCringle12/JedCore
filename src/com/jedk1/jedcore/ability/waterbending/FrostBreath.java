@@ -40,7 +40,11 @@ public class FrostBreath extends IceAbility implements AddonAbility {
 	private static final List<Biome> INVALID_BIOMES = Arrays.asList(
 			Biome.DESERT,
 			Biome.DESERT_HILLS,
-			Biome.NETHER,
+			Biome.CRIMSON_FOREST,
+			Biome.BASALT_DELTAS,
+			Biome.NETHER_WASTES,
+			Biome.WARPED_FOREST,
+			Biome.SOUL_SAND_VALLEY,
 			Biome.BADLANDS,
 			Biome.BADLANDS_PLATEAU,
 			Biome.ERODED_BADLANDS,

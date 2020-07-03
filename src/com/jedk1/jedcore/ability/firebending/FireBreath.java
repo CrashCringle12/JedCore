@@ -204,7 +204,7 @@ public class FireBreath extends FireAbility implements AddonAbility {
 
 			} else {
 				ParticleEffect.SMOKE_NORMAL.display(loc, particles, Math.random(), Math.random(), Math.random(), size);
-				ParticleEffect.FLAME.display(loc, particles, Math.random(), Math.random(), Math.random(), size);
+				playFirebendingParticles(loc, particles, Math.random(), Math.random(), Math.random(), size);
 			}
 		}
 	}

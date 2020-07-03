@@ -13,7 +13,6 @@ import com.jedk1.jedcore.util.FireTick;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.util.Collision;
 import com.projectkorra.projectkorra.airbending.AirShield;
-import com.projectkorra.projectkorra.firebending.util.FireDamageTimer;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -108,14 +107,13 @@ public class FireShots extends FireAbility implements AddonAbility {
 				}
 				
 				ParticleEffect.SMOKE_NORMAL.display(location, 2, 0.0, 0.0, 0.0, 0.01);
-				ParticleEffect.FLAME.display(location, 5, 0.0, 0.0, 0.0, 0.02);
+				playFirebendingParticles(location, 5, 0.0, 0.0, 0.0, 0.02);
 
 				Sphere collider = new Sphere(location.toVector(), collisionRadius);
 
 				boolean hit = CollisionDetector.checkEntityCollisions(player, collider, (entity) -> {
 					DamageHandler.damageEntity(entity, damage, ability);
 					FireTick.set(entity, Math.round(fireticks / 50));
-					new FireDamageTimer(entity, player);
 					return true;
 				});
 
@@ -179,7 +177,7 @@ public class FireShots extends FireAbility implements AddonAbility {
 	}
 
 	private void displayFireBalls(){
-		ParticleEffect.FLAME.display(getRightHandPos().toVector().add(player.getEyeLocation().getDirection().clone().multiply(.8D)).toLocation(player.getWorld()), 3, 0, 0, 0, 0.01);
+		playFirebendingParticles(getRightHandPos().toVector().add(player.getEyeLocation().getDirection().clone().multiply(.8D)).toLocation(player.getWorld()), 3, 0, 0, 0, 0.01);
 		ParticleEffect.SMOKE_NORMAL.display(getRightHandPos().toVector().add(player.getEyeLocation().getDirection().clone().multiply(.8D)).toLocation(player.getWorld()), 3, 0, 0, 0, 0.01);
 	}
 	

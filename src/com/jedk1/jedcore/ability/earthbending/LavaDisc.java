@@ -27,7 +27,6 @@ import com.jedk1.jedcore.util.RegenTempBlock;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.LavaAbility;
-import com.projectkorra.projectkorra.firebending.util.FireDamageTimer;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.projectkorra.projectkorra.util.TempBlock;
@@ -177,7 +176,6 @@ public class LavaDisc extends LavaAbility implements AddonAbility {
 	private void doDamage(Entity entity) {
 		DamageHandler.damageEntity(entity, damage, this);
 		entity.setFireTicks(20);
-		new FireDamageTimer(entity, player);
 		ParticleEffect.LAVA.display(entity.getLocation(), 15, Math.random(), Math.random(), Math.random(), 0.1);
 	}
 	

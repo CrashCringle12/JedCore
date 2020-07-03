@@ -36,7 +36,11 @@ public class Drain extends WaterAbility implements AddonAbility {
 	private static final Biome[] INVALID_BIOMES = {
 			Biome.DESERT,
 			Biome.DESERT_HILLS,
-			Biome.NETHER,
+			Biome.CRIMSON_FOREST,
+			Biome.BASALT_DELTAS,
+			Biome.NETHER_WASTES,
+			Biome.WARPED_FOREST,
+			Biome.SOUL_SAND_VALLEY,
 			Biome.BADLANDS,
 			Biome.BADLANDS_PLATEAU,
 			Biome.ERODED_BADLANDS,

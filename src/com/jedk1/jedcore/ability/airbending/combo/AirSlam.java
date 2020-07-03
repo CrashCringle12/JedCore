@@ -1,6 +1,6 @@
 package com.jedk1.jedcore.ability.airbending.combo;
 
-import com.jedk1.jedcore.JedCore;
+import com.jedk1.jedcore.JedCore; 
 import com.jedk1.jedcore.configuration.JedCoreConfig;
 import com.jedk1.jedcore.util.ThrownEntityTracker;
 import com.projectkorra.projectkorra.GeneralMethods;
@@ -9,8 +9,9 @@ import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.ComboAbility;
 import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
 import com.projectkorra.projectkorra.command.Commands;
-import com.projectkorra.projectkorra.object.HorizontalVelocityTracker;
+import com.projectkorra.projectkorra.object.VelocityTracker;
 import com.projectkorra.projectkorra.util.ClickType;
+import com.projectkorra.projectkorra.util.VelocityBuilder;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -59,7 +60,7 @@ public class AirSlam extends AirAbility implements AddonAbility, ComboAbility {
 		cooldown = config.getLong("Abilities.Air.AirCombo.AirSlam.Cooldown");
 		power = config.getDouble("Abilities.Air.AirCombo.AirSlam.Power");
 		range = config.getInt("Abilities.Air.AirCombo.AirSlam.Range");
-	}
+}
 
 	@Override
 	public void progress() {
@@ -70,7 +71,7 @@ public class AirSlam extends AirAbility implements AddonAbility, ComboAbility {
 		if (System.currentTimeMillis() > time + 50) {
 			Vector dir = player.getLocation().getDirection();
 			GeneralMethods.setVelocity(target, new Vector(dir.getX(), 0.05, dir.getZ()).multiply(power));
-			new HorizontalVelocityTracker(target, player, 0L, this);
+			new VelocityBuilder().apply(target, this, true, false);
 			new ThrownEntityTracker(this, target, player, 0L);
 			target.setFallDistance(0);
 		}
