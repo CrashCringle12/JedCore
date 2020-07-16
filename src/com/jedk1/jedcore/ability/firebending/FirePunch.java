@@ -50,7 +50,7 @@ public class FirePunch extends FireAbility implements AddonAbility {
 		Vector dir = player.getEyeLocation().getDirection();
 		Location righthand = offset.toVector().add(dir.clone().multiply(.8D)).toLocation(player.getWorld());
 		if (BendingPlayer.getBendingPlayer(player).hasSubElement(Element.BLUE_FIRE))
-			ParticleEffect.SOUL_FLAME.display(righthand, 3, 0, 0, 0, 0);
+			ParticleEffect.SOUL_FIRE_FLAME.display(righthand, 3, 0, 0, 0, 0);
 		else
 			ParticleEffect.FLAME.display(righthand, 3, 0, 0, 0, 0);
 		ParticleEffect.SMOKE_NORMAL.display(righthand, 3, 0, 0, 0, 0);

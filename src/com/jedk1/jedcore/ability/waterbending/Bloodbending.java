@@ -10,7 +10,7 @@ import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.BloodAbility;
 import com.projectkorra.projectkorra.ability.ElementalAbility;
 import com.projectkorra.projectkorra.command.Commands;
-import com.projectkorra.projectkorra.object.VelocityTracker;
+import com.projectkorra.projectkorra.object.HorizontalVelocityTracker;
 import com.projectkorra.projectkorra.util.DamageHandler;
 
 import jdk.jfr.events.ExceptionThrownEvent;
@@ -89,7 +89,8 @@ public class Bloodbending extends BloodAbility implements AddonAbility {
 			Vector direction = GeneralMethods.getDirection(player.getEyeLocation(), GeneralMethods.getTargetedLocation(player, 20, ElementalAbility.getTransparentMaterials())).normalize().multiply(3);
 			if (!victim.isDead()) {
 				victim.setVelocity(direction);
-				new VelocityTracker(victim, this, true, true);
+
+				new HorizontalVelocityTracker(victim, player, 200L, this);
 				new ThrownEntityTracker(this, victim, player, 200L);
 			}
 			remove();
@@ -142,7 +143,7 @@ public class Bloodbending extends BloodAbility implements AddonAbility {
 
 		victim = (LivingEntity) e;
 		DamageHandler.damageEntity(victim, 0, this);
-		VelocityTracker.getTracker(victim).cancel();
+		HorizontalVelocityTracker.remove(victim);
 		if (victim instanceof Creature) {
 			((Creature) victim).setTarget(null);
 		}

@@ -7,9 +7,8 @@ import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.ComboAbility;
 import com.projectkorra.projectkorra.ability.FlightAbility;
 import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
-import com.projectkorra.projectkorra.object.VelocityTracker;
+import com.projectkorra.projectkorra.object.HorizontalVelocityTracker;
 import com.projectkorra.projectkorra.util.ClickType;
-import com.projectkorra.projectkorra.util.VelocityBuilder;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -74,7 +73,7 @@ public class SwiftStream extends FlightAbility implements AddonAbility, ComboAbi
 
 				GeneralMethods.setVelocity(e, v);
 				affectedEntities.add((LivingEntity) e);
-				new VelocityBuilder().apply(e, this, true, false);
+				new HorizontalVelocityTracker(e, player, 200, this);
 			}
 		}
 	}

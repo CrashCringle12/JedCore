@@ -103,7 +103,7 @@ public class ESFire extends AvatarAbility implements AddonAbility {
 			}
 			ParticleEffect.SMOKE_LARGE.display(location, 2, Math.random(), Math.random(), Math.random(), 0.01);
 			if (bPlayer.hasSubElement(Element.BLUE_FIRE))
-				ParticleEffect.SOUL_FLAME.display(location, 5, Math.random(), Math.random(), Math.random(), 0.02);
+				ParticleEffect.SOUL_FIRE_FLAME.display(location, 5, Math.random(), Math.random(), Math.random(), 0.02);
 			else
 				ParticleEffect.FLAME.display(location, 5, Math.random(), Math.random(), Math.random(), 0.02);
 			FireAbility.playFirebendingSound(location);

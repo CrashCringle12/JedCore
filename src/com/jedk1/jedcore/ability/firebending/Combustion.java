@@ -489,7 +489,7 @@ public class Combustion extends CombustionAbility implements AddonAbility {
 			if ((!(location.getWorld().getBlockAt(location.getBlockX(), location.getBlockY() - 1, location.getBlockZ()).getType().isSolid())) || (chance != 0))
 				return;
 
-			location.getBlock().setType(getFireColor());
+			location.getBlock().setType(getFireType());
 		}
 
 		protected void placeRandomBlock(Location location) {

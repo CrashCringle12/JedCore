@@ -105,7 +105,7 @@ public class FireBall extends FireAbility implements AddonAbility {
 			ParticleEffect.SMOKE_LARGE.display(location, 1, 0, 0, 0, 0);
 			for (int j = 0; j < 5; j++) {
 				if (bPlayer.hasSubElement(Element.BLUE_FIRE))
-					ParticleEffect.SOUL_FLAME.display(location, 1, 0, 0, 0, 0);
+					ParticleEffect.SOUL_FIRE_FLAME.display(location, 1, 0, 0, 0, 0);
 				else
 					ParticleEffect.FLAME.display(location, 1, 0, 0, 0, 0);
 			}
