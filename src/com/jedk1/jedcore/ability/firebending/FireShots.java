@@ -13,11 +13,14 @@ import com.jedk1.jedcore.util.FireTick;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.util.Collision;
 import com.projectkorra.projectkorra.airbending.AirShield;
+import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.firebending.util.FireDamageTimer;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import com.jedk1.jedcore.JedCore;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.Ability;
 import com.projectkorra.projectkorra.ability.AddonAbility;
@@ -30,11 +33,17 @@ import static java.util.stream.Collectors.toList;
 
 public class FireShots extends FireAbility implements AddonAbility {
 	private List<FireShot> shots = new ArrayList<>();
+	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
+	@Attribute("MaxShots")
 	private int startAmount;
+	@Attribute(Attribute.FIRE_TICK)
 	private int fireticks;
+	@Attribute(Attribute.RANGE)
 	private int range;
+	@Attribute(Attribute.DAMAGE)
 	private double damage;
+	@Attribute("CollisionRadius")
 	private double collisionRadius;
 
 	public int amount;
@@ -106,14 +115,19 @@ public class FireShots extends FireAbility implements AddonAbility {
 					return false;
 				}
 				
+				if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+					ParticleEffect.SOUL_FIRE_FLAME.display(location, 5, 0.0, 0.0, 0.0, 0.02);
+				} else {
+					ParticleEffect.FLAME.display(location, 5, 0.0, 0.0, 0.0, 0.02);
+				}
 				ParticleEffect.SMOKE_NORMAL.display(location, 2, 0.0, 0.0, 0.0, 0.01);
-				playFirebendingParticles(location, 5, 0.0, 0.0, 0.0, 0.02);
 
 				Sphere collider = new Sphere(location.toVector(), collisionRadius);
 
 				boolean hit = CollisionDetector.checkEntityCollisions(player, collider, (entity) -> {
 					DamageHandler.damageEntity(entity, damage, ability);
 					FireTick.set(entity, Math.round(fireticks / 50));
+					new FireDamageTimer(entity, player);
 					return true;
 				});
 
@@ -177,7 +191,11 @@ public class FireShots extends FireAbility implements AddonAbility {
 	}
 
 	private void displayFireBalls(){
-		playFirebendingParticles(getRightHandPos().toVector().add(player.getEyeLocation().getDirection().clone().multiply(.8D)).toLocation(player.getWorld()), 3, 0, 0, 0, 0.01);
+		if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+			ParticleEffect.SOUL_FIRE_FLAME.display(getRightHandPos().toVector().add(player.getEyeLocation().getDirection().clone().multiply(.8D)).toLocation(player.getWorld()), 3, 0, 0, 0, 0.01);
+		} else {
+			ParticleEffect.FLAME.display(getRightHandPos().toVector().add(player.getEyeLocation().getDirection().clone().multiply(.8D)).toLocation(player.getWorld()), 3, 0, 0, 0, 0.01);
+		}
 		ParticleEffect.SMOKE_NORMAL.display(getRightHandPos().toVector().add(player.getEyeLocation().getDirection().clone().multiply(.8D)).toLocation(player.getWorld()), 3, 0, 0, 0, 0.01);
 	}
 	

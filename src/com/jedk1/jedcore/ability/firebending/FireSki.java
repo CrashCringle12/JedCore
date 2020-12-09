@@ -5,9 +5,11 @@ import com.jedk1.jedcore.JedCore;
 import com.jedk1.jedcore.collision.CollisionDetector;
 import com.jedk1.jedcore.configuration.JedCoreConfig;
 import com.jedk1.jedcore.util.FireTick;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
 import org.bukkit.Location;
@@ -23,10 +25,14 @@ public class FireSki extends FireAbility implements AddonAbility {
 	private Location location;
 	private long time;
 
+	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
+	@Attribute(Attribute.DURATION)
 	private long duration;
+	@Attribute(Attribute.SPEED)
 	private double speed;
 	private boolean ignite;
+	@Attribute(Attribute.FIRE_TICK)
 	private int fireTicks;
 	private double requiredHeight;
 
@@ -160,15 +166,23 @@ public class FireSki extends FireAbility implements AddonAbility {
 
 		for (Location l : JCMethods.getLinePoints(player.getEyeLocation().add(0, -0.5, 0).add(getRightHeadDirection(player).multiply(0.2)), right1, 6)) {
 			size += 0.05;
+			if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+				ParticleEffect.SOUL_FIRE_FLAME.display(l, 4, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
+			} else {
+				ParticleEffect.FLAME.display(l, 4, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
+			}
 			ParticleEffect.SMOKE_NORMAL.display(l, 1, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
-			playFirebendingParticles(l, 4, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
 		}
 
 		size = 0;
 		for (Location l : JCMethods.getLinePoints(player.getEyeLocation().add(0, -0.5, 0).add(getLeftHeadDirection(player).multiply(0.2)), left1, 6)) {
 			size += 0.05;
+			if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+				ParticleEffect.SOUL_FIRE_FLAME.display(l, 4, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
+			} else {
+				ParticleEffect.FLAME.display(l, 4, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
+			}
 			ParticleEffect.SMOKE_NORMAL.display(l, 1, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
-			playFirebendingParticles(l, 4, (Math.random() * size + 0.01), (Math.random() * size + 0.01), (Math.random() * size + 0.01), 0.08);
 		}
 	}
 

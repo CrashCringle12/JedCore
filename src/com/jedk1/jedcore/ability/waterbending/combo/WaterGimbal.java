@@ -12,10 +12,11 @@ import com.projectkorra.projectkorra.ability.ComboAbility;
 import com.projectkorra.projectkorra.ability.ElementalAbility;
 import com.projectkorra.projectkorra.ability.WaterAbility;
 import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.BlockSource;
 import com.projectkorra.projectkorra.util.ClickType;
 import com.projectkorra.projectkorra.util.TempBlock;
-import com.projectkorra.projectkorra.waterbending.OctopusForm;
+import com.projectkorra.projectkorra.waterbending.WaterManipulation;
 import com.projectkorra.projectkorra.waterbending.Torrent;
 
 import com.projectkorra.projectkorra.waterbending.ice.PhaseChange;
@@ -41,11 +42,17 @@ import java.util.Random;
 
 public class WaterGimbal extends WaterAbility implements AddonAbility, ComboAbility {
 
+	@Attribute(Attribute.SELECT_RANGE)
 	private int sourcerange;
+	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
+	@Attribute("Width")
 	private double ringsize;
+	@Attribute(Attribute.RANGE)
 	private double range;
+	@Attribute(Attribute.DAMAGE)
 	private double damage;
+	@Attribute(Attribute.SPEED)
 	private double speed;
 	private int animspeed;
 	private boolean plantSourcing;
@@ -94,8 +101,8 @@ public class WaterGimbal extends WaterAbility implements AddonAbility, ComboAbil
 			if (hasAbility(player, Torrent.class)) {
 				((Torrent) getAbility(player, Torrent.class)).remove();
 			}
-			if (hasAbility(player, OctopusForm.class)) {
-				((OctopusForm) getAbility(player, OctopusForm.class)).remove();
+			if (hasAbility(player, WaterManipulation.class)) {
+				((WaterManipulation) getAbility(player, WaterManipulation.class)).remove();
 			}
 		}
 	}
@@ -125,12 +132,12 @@ public class WaterGimbal extends WaterAbility implements AddonAbility, ComboAbil
 			remove();
 			return;
 		}
-		if (!bPlayer.canBendIgnoreBinds(this) || !bPlayer.canBendIgnoreCooldowns(getAbility("OctopusForm"))) {
+		if (!bPlayer.canBendIgnoreBinds(this) || !bPlayer.canBendIgnoreCooldowns(getAbility("WaterManipulation"))) {
 			remove();
 			return;
 		}
-		if (hasAbility(player, OctopusForm.class)) {
-			((OctopusForm) getAbility(player, OctopusForm.class)).remove();
+		if (hasAbility(player, WaterManipulation.class)) {
+			((WaterManipulation) getAbility(player, WaterManipulation.class)).remove();
 		}
 		if (leftconsumed && rightconsumed) {
 			remove();
@@ -235,8 +242,8 @@ public class WaterGimbal extends WaterAbility implements AddonAbility, ComboAbil
 	public static void prepareBlast(Player player) {
 		if (hasAbility(player, WaterGimbal.class)) {
 			((WaterGimbal) getAbility(player, WaterGimbal.class)).prepareBlast();
-			if (hasAbility(player, OctopusForm.class)) {
-				((OctopusForm) getAbility(player, OctopusForm.class)).remove();
+			if (hasAbility(player, WaterManipulation.class)) {
+				((WaterManipulation) getAbility(player, WaterManipulation.class)).remove();
 			}
 		}
 	}
@@ -418,13 +425,13 @@ public class WaterGimbal extends WaterAbility implements AddonAbility, ComboAbil
 		combination.add(new AbilityInformation("Torrent", ClickType.SHIFT_UP));
 		combination.add(new AbilityInformation("Torrent", ClickType.SHIFT_DOWN));
 		combination.add(new AbilityInformation("Torrent", ClickType.SHIFT_UP));
-		combination.add(new AbilityInformation("OctopusForm", ClickType.SHIFT_DOWN));
+		combination.add(new AbilityInformation("WaterManipulation", ClickType.SHIFT_DOWN));
 		return combination;
 	}
 
 	@Override
 	public String getInstructions() {
-		return "Torrent (Tap Shift) > Torrent (Tap Shift) > OctopusForm (Hold Shift) > OctopusForm (Left Click Multiple times)";
+		return "Torrent (Tap Shift) > Torrent (Tap Shift) > WaterManipulation (Hold Shift) > WaterManipulation (Left-click multiple times)";
 	}
 
 	@Override

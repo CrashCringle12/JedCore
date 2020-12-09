@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.jedk1.jedcore.JCMethods;
 import com.jedk1.jedcore.configuration.JedCoreConfig;
 import com.jedk1.jedcore.util.FireTick;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -20,6 +21,7 @@ import org.bukkit.util.Vector;
 
 import com.jedk1.jedcore.JedCore;
 import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
@@ -37,12 +39,18 @@ public class FireBreath extends FireAbility implements AddonAbility {
 	private int ticks;
 	Random rand = new Random();
 
+	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
+	@Attribute(Attribute.DURATION)
 	private long duration;
 	private int particles;
+	@Attribute(Attribute.DAMAGE)
 	private double playerDamage;
+	@Attribute(Attribute.DAMAGE)
 	private double mobDamage;
+	@Attribute(Attribute.DURATION)
 	private int fireDuration;
+	@Attribute(Attribute.RANGE)
 	private int range;
 	private boolean spawnFire;
 	private boolean meltEnabled;
@@ -203,8 +211,12 @@ public class FireBreath extends FireAbility implements AddonAbility {
 				}
 
 			} else {
+				if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+					ParticleEffect.SOUL_FIRE_FLAME.display(loc, particles, Math.random(), Math.random(), Math.random(), size);
+				} else {
+					ParticleEffect.FLAME.display(loc, particles, Math.random(), Math.random(), Math.random(), size);
+				}
 				ParticleEffect.SMOKE_NORMAL.display(loc, particles, Math.random(), Math.random(), Math.random(), size);
-				playFirebendingParticles(loc, particles, Math.random(), Math.random(), Math.random(), size);
 			}
 		}
 	}

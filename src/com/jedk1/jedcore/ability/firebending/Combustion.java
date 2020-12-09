@@ -9,12 +9,16 @@ import com.jedk1.jedcore.util.FireTick;
 import com.jedk1.jedcore.util.MaterialUtil;
 import com.jedk1.jedcore.util.RegenTempBlock;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ProjectKorra;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.CombustionAbility;
+import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.ability.WaterAbility;
 import com.projectkorra.projectkorra.ability.util.Collision;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.projectkorra.projectkorra.util.TempBlock;
@@ -36,6 +40,7 @@ import java.util.Random;
 public class Combustion extends CombustionAbility implements AddonAbility {
 	private State state;
 	private Location location;
+	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
 	private CompositeRemovalPolicy removalPolicy;
 
@@ -231,8 +236,11 @@ public class Combustion extends CombustionAbility implements AddonAbility {
 				double z = size * Math.sin(angle);
 
 				Location loc = player.getLocation().add(x, 1.0D, z);
-				
-				playFirebendingParticles(loc, 3, 0.0, 0.0, 0.0, 0.01);
+				if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+					ParticleEffect.SOUL_FIRE_FLAME.display(loc, 3, 0.0, 0.0, 0.0, 0.01);
+				} else {
+					ParticleEffect.FLAME.display(loc, 3, 0.0, 0.0, 0.0, 0.01);
+				}
 				ParticleEffect.SMOKE_NORMAL.display(loc, 4, 0.0, 0.0, 0.0, 0.01);
 			}
 		}
@@ -330,7 +338,11 @@ public class Combustion extends CombustionAbility implements AddonAbility {
 		}
 
 		private void render() {
-			playFirebendingParticles(location, 1, 0.0, 0.0, 0.0, 0.03);
+			if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+				ParticleEffect.SOUL_FIRE_FLAME.display(location, 1, 0.0, 0.0, 0.0, 0.03);
+			} else {
+				ParticleEffect.FLAME.display(location, 1, 0.0, 0.0, 0.0, 0.03);
+			}
 			ParticleEffect.SMOKE_LARGE.display(location, 1, 0.0, 0.0, 0.0F, 0.06);
 			ParticleEffect.FIREWORKS_SPARK.display(location, 1, 0.0, 0.0, 0.0F, 0.06);
 
@@ -422,7 +434,7 @@ public class Combustion extends CombustionAbility implements AddonAbility {
 	private abstract class AbstractExplosionMethod implements ExplosionMethod {
 		protected List<Material> blocks = Arrays.asList(
 				Material.AIR, Material.VOID_AIR, Material.CAVE_AIR, Material.BEDROCK, Material.CHEST, Material.TRAPPED_CHEST, Material.OBSIDIAN,
-				Material.NETHER_PORTAL, Material.END_PORTAL, Material.END_PORTAL_FRAME, Material.FIRE, Material.SOUL_FIRE,
+				Material.NETHER_PORTAL, Material.END_PORTAL, Material.END_PORTAL_FRAME, Material.FIRE,
 				Material.WATER, Material.LAVA, Material.DROPPER, Material.FURNACE,
 				Material.DISPENSER, Material.HOPPER, Material.BEACON, Material.BARRIER, Material.SPAWNER
 		);
@@ -449,7 +461,11 @@ public class Combustion extends CombustionAbility implements AddonAbility {
 		}
 
 		private void render(Location location) {
-			playFirebendingParticles(location, 20, Math.random(), Math.random(), Math.random(), 0.5);
+			if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
+				ParticleEffect.SOUL_FIRE_FLAME.display(location, 20, Math.random(), Math.random(), Math.random(), 0.5);
+			} else {
+				ParticleEffect.FLAME.display(location, 20, Math.random(), Math.random(), Math.random(), 0.5);
+			}
 			ParticleEffect.SMOKE_LARGE.display(location, 20, Math.random(), Math.random(), Math.random(), 0.5);
 			ParticleEffect.FIREWORKS_SPARK.display(location, 20, Math.random(), Math.random(), Math.random(), 0.5);
 			ParticleEffect.SMOKE_LARGE.display(location, 20, Math.random(), Math.random(), Math.random());
@@ -489,7 +505,7 @@ public class Combustion extends CombustionAbility implements AddonAbility {
 			if ((!(location.getWorld().getBlockAt(location.getBlockX(), location.getBlockY() - 1, location.getBlockZ()).getType().isSolid())) || (chance != 0))
 				return;
 
-			location.getBlock().setType(getFireType());
+			location.getBlock().setType(Material.FIRE);
 		}
 
 		protected void placeRandomBlock(Location location) {

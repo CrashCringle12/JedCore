@@ -8,6 +8,7 @@ import com.jedk1.jedcore.util.FireTick;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.util.Collision;
 import com.projectkorra.projectkorra.airbending.AirShield;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
@@ -16,11 +17,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import com.jedk1.jedcore.JedCore;
-import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.firebending.BlazeArc;
+import com.projectkorra.projectkorra.firebending.util.FireDamageTimer;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
@@ -28,13 +30,18 @@ public class FireBall extends FireAbility implements AddonAbility {
 	private Location location;
 	private Vector direction;
 	private double distanceTravelled;
-	
+
+	@Attribute(Attribute.RANGE)
 	private long range;
+	@Attribute(Attribute.FIRE_TICK)
 	private long fireticks;
+	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
+	@Attribute(Attribute.DAMAGE)
 	private double damage;
 	private boolean controllable;
 	private boolean fireTrail;
+	@Attribute("CollisionRadius")
 	private double collisionRadius;
 
 	public FireBall(Player player){
@@ -104,10 +111,11 @@ public class FireBall extends FireAbility implements AddonAbility {
 			ParticleEffect.SMOKE_LARGE.display(location, 1, 0, 0, 0, 0);
 			ParticleEffect.SMOKE_LARGE.display(location, 1, 0, 0, 0, 0);
 			for (int j = 0; j < 5; j++) {
-				if (bPlayer.hasSubElement(Element.BLUE_FIRE))
+				if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
 					ParticleEffect.SOUL_FIRE_FLAME.display(location, 1, 0, 0, 0, 0);
-				else
+				} else {
 					ParticleEffect.FLAME.display(location, 1, 0, 0, 0, 0);
+				}
 			}
 
 			boolean hitTarget = CollisionDetector.checkEntityCollisions(player, new Sphere(location.toVector(), collisionRadius), this::doDamage);
@@ -130,6 +138,7 @@ public class FireBall extends FireAbility implements AddonAbility {
 		DamageHandler.damageEntity(entity, damage, this);
 
 		FireTick.set(entity, Math.round(fireticks / 50));
+		new FireDamageTimer(entity, player);
 		return false;
 	}
 	

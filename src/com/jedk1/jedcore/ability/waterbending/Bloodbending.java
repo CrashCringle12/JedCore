@@ -9,11 +9,11 @@ import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.BloodAbility;
 import com.projectkorra.projectkorra.ability.ElementalAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.command.Commands;
 import com.projectkorra.projectkorra.object.HorizontalVelocityTracker;
 import com.projectkorra.projectkorra.util.DamageHandler;
 
-import jdk.jfr.events.ExceptionThrownEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -35,7 +35,9 @@ public class Bloodbending extends BloodAbility implements AddonAbility {
 	private boolean bloodbendingThroughBlocks;
 	private boolean requireBound;
 	private int distance;
+	@Attribute(Attribute.DURATION)
 	private long holdtime;
+	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
 	
 	private long time;
