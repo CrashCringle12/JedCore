@@ -68,7 +68,6 @@ public class FirePunch extends FireAbility implements AddonAbility {
 		if (bPlayer.canBend(getAbility("FirePunch")) && getRecent().contains(player.getUniqueId())) {
 			bPlayer.addCooldown(getAbility("FirePunch"), getStaticCooldown(player.getWorld()));
 			getRecent().remove(player.getUniqueId());
-			// playFirebendingParticles(target.getLocation().add(0, 1, 0), 1, 0f, 0f, 0f);
 			DamageAbility da = new DamageAbility(player);
 			da.remove();
 			DamageHandler.damageEntity(target, getDamage(target.getWorld()), da);

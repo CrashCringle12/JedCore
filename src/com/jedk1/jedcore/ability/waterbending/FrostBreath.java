@@ -69,7 +69,7 @@ public class FrostBreath extends IceAbility implements AddonAbility {
 		this.state = new BeamState();
 
 		Location temp = player.getLocation();
-		Biome biome = temp.getWorld().getBiome(temp.getBlockX(), temp.getBlockZ());
+		Biome biome = temp.getWorld().getBiome(temp.getBlockX(), temp.getBlockY(), temp.getBlockZ());
 
 		if (config.restrictBiomes && INVALID_BIOMES.contains(biome)) {
 			return;

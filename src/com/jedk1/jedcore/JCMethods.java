@@ -4,8 +4,6 @@ import java.util.*;
 
 import com.jedk1.jedcore.util.*;
 import com.projectkorra.projectkorra.ability.ElementalAbility;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -75,7 +73,7 @@ public class JCMethods {
 	 * @param points
 	 * @return locations
 	 */
-	public static List<Location> playFirebendingParticles(Location startLoc, Location endLoc, int points){
+	public static List<Location> getLinePoints(Location startLoc, Location endLoc, int points){
 		List<Location> locations = new ArrayList<Location>();
 		Location diff = endLoc.subtract(startLoc);
 		double diffX = diff.getX() / points;
@@ -250,26 +248,7 @@ public class JCMethods {
 			}
 		}
 	}
-	/**
-	 * Gets the points of a line between two points.
-	 * @param start
-	 * @param end
-	 * @param points
-	 * @return locations
-	 */
-	public static List<Location> getLinePoints(Location startLoc, Location endLoc, int points){
-		List<Location> locations = new ArrayList<Location>();
-		Location diff = endLoc.subtract(startLoc);
-		double diffX = diff.getX() / points;
-		double diffY = diff.getY() / points;
-		double diffZ = diff.getZ() / points;
-		Location loc = startLoc;
-		for(int i = 0; i < points; i++){
-			loc.add(new Location(startLoc.getWorld(), diffX, diffY, diffZ));
-			locations.add(loc.clone());
-		}
-		return locations;
-	}
+	
 	/**
 	 * Checks if 3 blocks around the block are of the required type.
 	 * @param block

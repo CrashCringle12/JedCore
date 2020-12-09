@@ -99,7 +99,6 @@ public class TempFallingBlock {
 		return fallingblock.getMaterial();
 	}
 
-	@SuppressWarnings("deprecation")
 	public BlockData getData() {
 		return fallingblock.getBlockData();
 	}

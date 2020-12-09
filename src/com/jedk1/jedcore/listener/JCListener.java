@@ -210,7 +210,7 @@ public class JCListener implements Listener {
 			event.blockList().clear();
 		}
 	}
-/*
+
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onCollisionWithEntity(HorizontalVelocityChangeEvent event) {
 		if (event.getEntity().getWorld() != event.getInstigator().getWorld()) {
@@ -218,7 +218,6 @@ public class JCListener implements Listener {
 		}
 		IceWall.collisionDamage(event.getEntity(), event.getDistanceTraveled(), event.getDifference(), event.getInstigator());
 	}
-	*/
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerSprint(PlayerToggleSprintEvent event) {

@@ -110,7 +110,6 @@ public class ESStream extends AvatarAbility implements AddonAbility {
 		regen = config.getLong("Abilities.Avatar.ElementSphere.Stream.ImpactRevert");
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void progress() {
 		if (player == null || !player.isOnline()) {

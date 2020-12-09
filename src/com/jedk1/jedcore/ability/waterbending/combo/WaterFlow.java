@@ -163,7 +163,6 @@ public class WaterFlow extends WaterAbility implements AddonAbility, ComboAbilit
 		fullmoonSizeLarge = config.getInt("Abilities.Water.WaterCombo.WaterFlow.Size.FullmoonLarge");
 	}
 
-	@SuppressWarnings("deprecation")
 	public static List<Block> getNearbySources(Block block, int searchrange) {
 		List<Block> sources = new ArrayList<Block>();
 		for (Location l : GeneralMethods.getCircle(block.getLocation(), searchrange, 2, false, false, -1)) {

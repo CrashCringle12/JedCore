@@ -13,7 +13,6 @@ import com.projectkorra.projectkorra.util.ParticleEffect;
 
 import com.projectkorra.projectkorra.util.TempBlock;
 import com.projectkorra.projectkorra.waterbending.util.WaterReturn;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -261,7 +260,7 @@ public class Drain extends WaterAbility implements AddonAbility {
 			if (block != null && block.getY() > 2 && block.getY() < 255) {
 				if (rand.nextInt(chance) == 0) {
 					Location temp = player.getLocation();
-					Biome biome = temp.getWorld().getBiome(temp.getBlockX(), temp.getBlockZ());
+					Biome biome = temp.getWorld().getBiome(temp.getBlockX(), temp.getBlockY(), temp.getBlockZ());
 					if (useRain && player.getWorld().hasStorm() && isValidBiome(biome)) {
 						if (player.getLocation().getY() >= player.getWorld().getHighestBlockAt(player.getLocation()).getLocation().getY()) {
 							if (block.getLocation().getY() >= player.getWorld().getHighestBlockAt(player.getLocation()).getLocation().getY()) {
