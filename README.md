@@ -4,6 +4,10 @@ Download releases [here](https://github.com/Aztlon/JedCore/releases).
 
 ## Changelog
 
+### 2.9.6
+- Fully updated to Spigot 1.16 (no longer backwards compatible)
+- Small Code Cleanup
+
 ### 2.9.5-alpha.1
 - Added Blue Fire support for all fire abilities
 - Changed WaterGimbal combo abilities to Torrent > Torrent > WaterManipulation
