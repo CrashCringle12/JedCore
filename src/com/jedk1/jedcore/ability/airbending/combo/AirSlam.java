@@ -3,7 +3,9 @@ package com.jedk1.jedcore.ability.airbending.combo;
 import com.jedk1.jedcore.JedCore;
 import com.jedk1.jedcore.configuration.JedCoreConfig;
 import com.jedk1.jedcore.util.ThrownEntityTracker;
+import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.ComboAbility;
@@ -82,7 +84,12 @@ public class AirSlam extends AirAbility implements AddonAbility, ComboAbility {
 			remove();
 			return;
 		}
-		playAirbendingParticles(target.getLocation(), 10);
+		if (BendingPlayer.getBendingPlayer(player).canUseSubElement(SubElement.POLLUTED)) {
+			playPollutedAirbendingParticles(target.getLocation(), 10);
+
+		} else {
+			playAirbendingParticles(target.getLocation(), 10);
+		}
 	}
 
 	@Override

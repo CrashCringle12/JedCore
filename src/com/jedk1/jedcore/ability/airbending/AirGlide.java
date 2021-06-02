@@ -3,6 +3,8 @@ package com.jedk1.jedcore.ability.airbending;
 import com.jedk1.jedcore.JedCore;
 import com.jedk1.jedcore.collision.CollisionDetector;
 import com.jedk1.jedcore.configuration.JedCoreConfig;
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.airbending.AirSpout;
@@ -118,7 +120,12 @@ public class AirGlide extends AirAbility implements AddonAbility {
 			firstLocation.add(shootFromPlayer.getX(), shootFromPlayer.getY(), shootFromPlayer.getZ());
 
 			player.setVelocity(shootFromPlayer);
-			playAirbendingParticles(player.getLocation(), particles);
+			if (BendingPlayer.getBendingPlayer(player).canUseSubElement(SubElement.POLLUTED)) {
+				playPollutedAirbendingParticles(player.getLocation(), particles);
+
+			} else {
+				playAirbendingParticles(player.getLocation(), particles);
+			}
 		} else if (!isTransparent(player.getLocation().getBlock().getRelative(BlockFace.DOWN))) {
 			remove();
 		}

@@ -3,6 +3,7 @@ package com.jedk1.jedcore.ability.avatar.elementsphere;
 import com.jedk1.jedcore.JedCore;
 import com.jedk1.jedcore.configuration.JedCoreConfig;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.AvatarAbility;
@@ -92,8 +93,12 @@ public class ESAir extends AvatarAbility implements AddonAbility {
 				travelled = range;
 				return;
 			}
-
-			AirAbility.playAirbendingParticles(location, 5);
+			if (this.getBendingPlayer().canUseSubElement(SubElement.POLLUTED)) {
+				AirAbility.playPollutedAirbendingParticles(location, 5);
+			} else {
+				AirAbility.playAirbendingParticles(location, 5);
+				}
+			
 			AirAbility.playAirbendingSound(location);
 
 			for (Entity entity : GeneralMethods.getEntitiesAroundPoint(location, 2.5)) {
